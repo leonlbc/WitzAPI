@@ -8,7 +8,7 @@ class Portfolio:
     def __init__(self, data):
         self.id = data['id']  # 1
         self.period = self.format_period(data['period'])  # 12-01-2010
-        self.stocks = self.to_stocks(data['stocks'])  # [Stock, Stock]
+        self.stocks = self.to_stocks(data['stocks'])  # [Stock, Stock] (Stock: ticker, weight)
 
     @staticmethod
     def format_period(date_period):
