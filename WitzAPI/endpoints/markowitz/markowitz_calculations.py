@@ -2,12 +2,12 @@ import pandas as pd
 from WitzAPI.endpoints.markowitz.utils.stock_data_api import Yahoo
 
 
-def get_historic_data(stocks, period):
+def historic_data(stocks, period):
     my_data = pd.DataFrame()
     for stock in stocks:
-        my_data[stock] = Yahoo.get_data(stock, period)
-    return my_data.to_json()
-    # normalize_data(my_data)
+        my_data[stock.ticker] = Yahoo.get_data(stock.ticker, period)
+    normalized_data = normalize_data(my_data)
+    return normalized_data.to_json()
 
 
 def normalize_data(data):

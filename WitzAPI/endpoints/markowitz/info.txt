@@ -1,0 +1,26 @@
+#
+#     | "/markowitz" POST Request Example |
+#
+#     {
+#         "id": 1,
+#         "stocks":[
+#             {
+#                 "ticker": "ITSA4",
+#                 "weight": 50.0
+#             },
+#             {
+#                 "ticker": "PETR4",
+#                 "weight": "null"
+#             }
+#         ],
+#         "period": "2010-01-01T18:25:43.511Z"
+#     }
+#
+
+# Validate Params |X|
+# Create Portfolio Class |X|
+# Choose API to get Data From | | (Yahoo => Temp)
+
+# Return Data:
+#   Historical data,
+#   Expected return, variance and volatility

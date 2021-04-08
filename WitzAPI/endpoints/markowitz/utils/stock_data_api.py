@@ -3,9 +3,9 @@ from pandas_datareader import data as wb
 
 class Yahoo:
     @staticmethod
-    def get_data(stock, period):
-        stock = Yahoo.ticker_format(stock)
-        stock_data = wb.DataReader(stock, 'yahoo', period)['Adj Close']
+    def get_data(ticker, period):
+        ticker = Yahoo.ticker_format(ticker)
+        stock_data = wb.DataReader(ticker, 'yahoo', period)['Adj Close']
         return stock_data
 
     @staticmethod
