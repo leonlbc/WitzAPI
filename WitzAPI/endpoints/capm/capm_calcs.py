@@ -14,3 +14,9 @@ def mkt_values(stock_return, mtr_cov, mkt_index):
 def calc_beta(mkt_cov, mkt_var):
     beta = mkt_cov/mkt_var
     return beta
+
+
+def calc_expected_return(risk_free, beta, mkt_return):
+    expected_return = risk_free + beta * (mkt_return - risk_free)
+    rounded_return = round(expected_return*100, 2)
+    return rounded_return

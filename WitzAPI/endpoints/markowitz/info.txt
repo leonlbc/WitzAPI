@@ -22,5 +22,4 @@
 # Choose API to get Data From | | (Yahoo => Temp)
 
 # Return Data:
-#   Historical data,
-#   Expected return, variance and volatility
+#   Expected return, variance and volatility, weights

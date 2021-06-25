@@ -1,5 +1,6 @@
 from flask import Response, request, Blueprint
-from WitzAPI.api.stock_data import get_historic_data, normalize_data, calc_return
+from WitzAPI.api.stock_data import get_historic_data
+from WitzAPI.endpoints.markowitz.markowitz_calcs import StockCalcs
 from WitzAPI.endpoints.markowitz.utils.validate import validate_params
 from WitzAPI.models.portfolio import Portfolio
 
@@ -12,11 +13,12 @@ def markowitz():
     if validate_params(req_data):
         received_portfolio = Portfolio(req_data)
         hist_data = get_historic_data(received_portfolio.stocks, received_portfolio.period)
-        normalized = normalize_data(hist_data)
-        stock_return = calc_return(normalized)
-        return build_response(normalized)
+        stock_calculations = StockCalcs(hist_data)
+        #portofolio_calculations = PortCalcs()
+        return hist_data.to_string()
+
     else:
-        return Response("", 400, mimetype='application/json')
+        return Response("Invalid Request", 400, mimetype='application/json')
 
 
 def build_response(normalized):

@@ -8,7 +8,7 @@ class Portfolio:
     def __init__(self, data):
         self.id = data['id']  # 1
         self.period = self.format_period(data['period'])  # 12-01-2010
-        self.stocks = self.to_stocks(data['stocks'])  # [Stock, Stock] (Stock: ticker, weight)
+        self.stocks = self.to_stocks(data['stocks'])  # [Stock, Stock] (Stock: 'ticker')
 
     @staticmethod
     def format_period(date_period):
@@ -18,6 +18,6 @@ class Portfolio:
     @staticmethod
     def to_stocks(received_stocks):
         stock_list = []
-        for stock in received_stocks:  # [{name: "ITSA4", weight: 50.0}, {name: "PETR4", weight: 50.0}]
+        for stock in received_stocks:  # [{name: "ITSA4"}, {name: "PETR4"}]
             stock_list.append(Stock(stock))
         return stock_list
