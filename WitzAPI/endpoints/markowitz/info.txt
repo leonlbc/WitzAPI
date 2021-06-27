@@ -3,14 +3,13 @@
 #
 #     {
 #         "id": 1,
+#         "n_simulations": 500,
 #         "stocks":[
 #             {
-#                 "ticker": "ITSA4",
-#                 "weight": 50.0
+#                 "ticker": "ITSA4"
 #             },
 #             {
-#                 "ticker": "PETR4",
-#                 "weight": "null"
+#                 "ticker": "PETR4"
 #             }
 #         ],
 #         "period": "2010-01-01T18:25:43.511Z"

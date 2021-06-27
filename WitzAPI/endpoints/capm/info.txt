@@ -1,0 +1,8 @@
+#
+#     | "/capm" POST Request Example |
+#
+#     {
+#         "ticker": "ITSA4",
+#         "risk_free": 2.3
+#     }
+

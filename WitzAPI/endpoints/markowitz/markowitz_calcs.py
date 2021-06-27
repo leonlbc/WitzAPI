@@ -1,62 +1,60 @@
 import numpy as np
+import pandas as pd
+import pdb
 
 
 class StockCalcs:
     def __init__(self, hist):
         self.historic_data = hist
-        self.s_return = self.h_return(self.historic_data)
-        self.mean = self.s_mean(self.s_return)
-        self.cov = self.s_cov(self.s_return)
-        self.corr = self.s_corr(self.s_return)
+        self.s_return = self.h_return()
+        self.mean = self.s_mean()
+        self.cov = self.s_cov()
 
-    @staticmethod
-    def h_return(historic_data):
-        stock_return = np.log(historic_data/historic_data.shift(1))
+    def h_return(self):
+        stock_return = np.log(self.historic_data/self.historic_data.shift(1))
         return stock_return
 
-    @staticmethod
-    def s_mean(stock_return):
-        ret_mean = stock_return.mean()*250
+    def s_mean(self):
+        ret_mean = self.s_return.mean()*250
         return ret_mean
 
-    @staticmethod
-    def s_cov(stock_return):
-        ret_cov = stock_return.cov()*250
+    def s_cov(self):
+        ret_cov = self.s_return.cov()*250
         return ret_cov
 
-    @staticmethod
-    def s_corr(stock_return):
-        ret_corr = stock_return.corr()
-        return ret_corr
 
+class PortCalcs:
+    def __init__(self, portfolio, stock_calcs):
+        self.p_returns = []
+        self.p_vol = []
+        self.sim = portfolio.n_simulations
+        self.stocks = portfolio.stocks
+        self.mean = stock_calcs.mean
+        self.cov = stock_calcs.cov
+        self.weights = self.simulate()
+        self.weights_df = self.format_df()
+        self.results = self.join_dfs().to_json()
 
+    def simulate(self):
+        weights = []
+        for i in range(self.sim):
+            rand_weights = np.random.random(len(self.stocks))
+            rand_weights /= np.sum(rand_weights)
+            port_ret = np.sum(rand_weights * self.mean)
+            port_var = np.dot(rand_weights.T, np.dot(self.cov, rand_weights))
+            p_vol = np.sqrt(port_var)
+            self.p_returns.append(port_ret)
+            self.p_vol.append(p_vol)
+            weights.append(rand_weights)
+        return weights
 
-'''class PortCalcs:
-    def __init__(self, hist):
-        self.historic_data = hist
-        self.s_return = self.h_return(self.historic_data)
-        self.mean = self.s_mean(self.s_return)
-        self.cov = self.s_cov(self.s_return)
-        self.corr = self.s_corr(self.s_return)
+    def format_df(self):
+        weights_df = pd.DataFrame(self.weights)
+        for index, stock in enumerate(self.stocks):
+            weights_df = weights_df.rename(columns={index: stock.ticker})
+        return weights_df
 
-    @staticmethod
-    def expected(historic_data):
-        expected = np.sum(weights*mu)
-        return expected
-
-    @staticmethod
-    def s_mean(stock_return):
-        ret_mean = stock_return.mean()*250
-        return ret_mean
-
-    @staticmethod
-    def s_cov(stock_return):
-        ret_cov = stock_return.cov()*250
-        return ret_cov
-
-    @staticmethod
-    def s_corr(stock_return):
-        ret_corr = stock_return.corr()
-        return ret_corr
-
-'''
+    def join_dfs(self):
+        return_vol_df = pd.DataFrame({'Return': self.p_returns, 'Volatility': self.p_vol})
+        results = pd.concat([return_vol_df, self.weights_df], axis=1, join='inner')
+        return results

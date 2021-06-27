@@ -7,7 +7,12 @@ schema = {
     "required": ["id", "stocks", "period"],
     "properties": {
         "id": {
-            "type": "number"
+            "type": "integer"
+        },
+        "n_simulations": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000
         },
         "stocks": {
             "type": "array"
