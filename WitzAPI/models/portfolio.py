@@ -7,8 +7,6 @@ class Portfolio:
 
     def __init__(self, data):
         self.data = data
-        self.id = self.data['id']  # 1
-        self.n_simulations = self.data['n_simulations']  # 1000
         self.period = self.format_period()  # 12-01-2010
         self.stocks = self.to_stocks()  # [Stock, Stock] (Stock: 'ticker')
 

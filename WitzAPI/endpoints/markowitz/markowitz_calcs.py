@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-import pdb
 
 
 class StockCalcs:
@@ -27,7 +26,7 @@ class PortCalcs:
     def __init__(self, portfolio, stock_calcs):
         self.p_returns = []
         self.p_vol = []
-        self.sim = portfolio.n_simulations
+        self.sim = portfolio.data['n_simulations']
         self.stocks = portfolio.stocks
         self.mean = stock_calcs.mean
         self.cov = stock_calcs.cov

@@ -2,7 +2,14 @@
 #     | "/capm" POST Request Example |
 #
 #     {
-#         "ticker": "ITSA4",
-#         "risk_free": 2.3
+#         "stocks":[{
+#             "ticker": "ITSA4"
+#             },
+#             {
+#             "ticker": "PETR4"
+#             }],
+#         "risk_free": 4.25,
+#         "period": 01-01-2012
 #     }
+#
 
