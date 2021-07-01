@@ -21,5 +21,6 @@ class Yahoo:
 
     @staticmethod
     def ticker_format(ticker):
-        ticker = ticker + ".SA"
+        if ticker.upper() != '^BVSP':
+            ticker = ticker + ".SA"
         return ticker

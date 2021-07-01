@@ -4,13 +4,16 @@ from jsonschema import validate
 schema = {
     "title": "Capm",
     "type": "object",
-    "required": ["stocks", "risk-free"],
+    "required": ["stocks", "risk-free", "period"],
     "properties": {
         "stocks": {
             "type": "array"
         },
         "risk-free": {
-            "type": "integer"
+            "type": "number"
+        },
+        "period": {
+            "type": "string"
         }
     }
 }
